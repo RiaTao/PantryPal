@@ -7,9 +7,8 @@ export default function MovieDetailScreen({ route }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container}>
-        {/* TODO: Configure this screen to have an image and appropriate text describing the movie. 
-                See the example on the spec for design inspiration.
-                Feel free to use the styles below. */}
+        {route.Image}
+        {route.Text}
       </ScrollView>
     </SafeAreaView>
   );
