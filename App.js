@@ -33,7 +33,7 @@ export default function App() {
           component = {MovieListScreen}
         />
         <Stack.Screen
-          name = "+ Info"
+          name = "About"
           component = {MovieDetailScreen}
         />
       </Stack.Group>

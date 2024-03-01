@@ -14,19 +14,33 @@ export default function MovieListScreen({ navigation, route }) {
   const [actors, setActors] = useState([]);
 
   // TODO: Fill out the methods below.
-  const selectedMovie = (movieItem) => {};
+  const selectedMovie = (movieItem) => {
+    return (
+      <View>
+        <Button
+          onPress = {(movieItem) => navigation.navigate('About', movieItem)}
+        />
+      </View>
+    );
+  };
 
-  const selectedFilterButton = () => {};
+  const selectedFilterButton = () => {
+
+  };
 
   useEffect(
-    () => {
+    (actors) => {
       // TODO: Add a "Filter" button to the right bar button.
       // It should lead to the MovieFilterScreen, and pass the "actors" state
       // variable as a parameter.
+      navigation.setOptions({
+        headerRight: () => (
+          <Button onPress={(actors) => navigation.navigate('Filter', actors)}
+          />
+        ),
+      });
     },
-    [
-      /* TODO: Insert dependencies here. */
-    ]
+    [actors]
   );
 
   useEffect(
@@ -36,10 +50,7 @@ export default function MovieListScreen({ navigation, route }) {
           for an example of how to send data BACKWARDS in the navigation stack.
       */
     },
-    [
-      /* TODO: Insert dependencies here. What variable changes 
-        when we come back from the filter screen? */
-    ]
+    []
   );
 
   // Renders a row of the FlatList.
@@ -60,6 +71,11 @@ export default function MovieListScreen({ navigation, route }) {
 
     if (meetsSearchCriteria && meetsActorsCriteria) {
       // TODO: Return a MovieCell, wrapped by a TouchableOpacity so we can handle taps.
+      return (
+        <TouchableOpacity>
+          {MovieCell}
+        </TouchableOpacity>
+      );
     } else {
       // If the item doesn't meet search/filter criteria, then we can
       // simply return null and it won't be rendered in the list!
@@ -73,7 +89,15 @@ export default function MovieListScreen({ navigation, route }) {
     <SafeAreaView style={styles.container}>
       {/* TODO: Add a SearchBar: https://reactnativeelements.com/docs/searchbar/.
                 The third-party package should already be installed for you. */}
-      {/* TODO: Add a FlatList: https://reactnative.dev/docs/flatlist */}
+      <SearchBar
+        placeholder="I'm looking for..."
+        onChangeText 
+      />
+      <FlatList
+        data = {TABLE_DATA}
+        onChangeText = {setSearch}
+        value = {search}
+      />
     </SafeAreaView>
   );
 }

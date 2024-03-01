@@ -19,6 +19,7 @@ export default function MovieFilterScreen({ navigation, route }) {
   const [actors, setActors] = useState([]);
 
   // TODO: Destructure navigation params from props.
+  
 
   useEffect(
     () => {

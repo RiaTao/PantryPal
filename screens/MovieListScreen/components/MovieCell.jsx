@@ -7,8 +7,10 @@ export const MovieCell = ({ movieItem }) => {
   // HINT: Take a look at the movieCell styles, as well as the video
   // demo in the spec, to figure out what this should look like.
   return (
-    <View>
-      <Text>Placeholder</Text>
+    <View style = {styles.MovieCell}>
+      <Image style = {styles.movieCellImage}> {movieItem.poster}</Image>
+      <Text style = {styles.movieCellTitle}>{movieItem.title}</Text>
+      <Text style = {styles.movieCellSubtitle}>{movieItem.actors}</Text>
     </View>
   );
 };
