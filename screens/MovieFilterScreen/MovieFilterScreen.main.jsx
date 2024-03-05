@@ -18,17 +18,16 @@ const ALL_ACTORS = getAllActors();
 export default function MovieFilterScreen({ navigation, route }) {
   const [actors, setActors] = useState([]);
 
-  // TODO: Destructure navigation params from props.
-  
+  // TODO: Destructure navigation params from props
+  const actorArray = route.params.actors
 
   useEffect(
     () => {
       // TODO: Recieve actors passed by MovieListScreen here, and update
       // our local state using setActors.
+      setActors(actorArray)
     },
-    [
-      /* TODO: Insert dependent variables here. */
-    ]
+    [route.params]
   );
 
   useEffect(
@@ -39,9 +38,7 @@ export default function MovieFilterScreen({ navigation, route }) {
       //      and passes back our current list of actors via params.
       // https://reactnavigation.org/docs/header-buttons/
     },
-    [
-      /* TODO: Insert dependent state variables here. */
-    ]
+    [route.params]
   );
 
   // When we tap an actor cell, flip the boolean!

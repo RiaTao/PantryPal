@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import MovieListScreen from "./screens/MovieListScreen/MovieListScreen.main";
 import MovieDetailScreen from "./screens/MovieDetailScreen/MovieDetailScreen.main";
 import MovieFilterScreen from "./screens/MovieFilterScreen/MovieFilterScreen.main";
+import { ScreenStackHeaderRightView } from "react-native-screens";
+import { Button } from "react-native-elements";
 
 /* TODO: 
 
@@ -31,6 +33,13 @@ export default function App() {
         <Stack.Screen
           name = "Movie Catalog"
           component = {MovieListScreen}
+          options = {{
+            headerRight : () => (
+              <Button
+                title = "Filter"
+              />
+            )
+          }}
         />
         <Stack.Screen
           name = "About"
@@ -41,6 +50,13 @@ export default function App() {
         <Stack.Screen
           name = "Filter Movies"
           component = {MovieFilterScreen}
+          options = {{
+            headerRight : () => (
+              <Button
+                title = "Done"
+              />
+            )
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>

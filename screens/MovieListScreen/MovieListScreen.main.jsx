@@ -15,13 +15,7 @@ export default function MovieListScreen({ navigation, route }) {
 
   // TODO: Fill out the methods below.
   const selectedMovie = (movieItem) => {
-    return (
-      <View>
-        <Button
-          onPress = {(movieItem) => navigation.navigate('About', movieItem)}
-        />
-      </View>
-    );
+    
   };
 
   const selectedFilterButton = () => {
@@ -29,7 +23,7 @@ export default function MovieListScreen({ navigation, route }) {
   };
 
   useEffect(
-    (actors) => {
+    () => {
       // TODO: Add a "Filter" button to the right bar button.
       // It should lead to the MovieFilterScreen, and pass the "actors" state
       // variable as a parameter.
@@ -49,8 +43,9 @@ export default function MovieListScreen({ navigation, route }) {
           See https://reactnavigation.org/docs/params/#passing-params-to-a-previous-screen
           for an example of how to send data BACKWARDS in the navigation stack.
       */
+     setActors()
     },
-    []
+    [navigation]
   );
 
   // Renders a row of the FlatList.
