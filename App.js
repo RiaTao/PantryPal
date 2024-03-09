@@ -6,9 +6,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import MovieListScreen from "./screens/MovieListScreen/MovieListScreen.main";
 import MovieDetailScreen from "./screens/MovieDetailScreen/MovieDetailScreen.main";
 import MovieFilterScreen from "./screens/MovieFilterScreen/MovieFilterScreen.main";
-import { ScreenStackHeaderRightView } from "react-native-screens";
-import { Button } from "react-native-elements";
-
 /* TODO: 
 
   This app has three screens:
@@ -26,40 +23,15 @@ import { Button } from "react-native-elements";
 const Stack = createStackNavigator();
 
 export default function App() {
-  return (
-  <NavigationContainer>
+  return <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Group screenOptions = {{ presentation: 'card' }}> {/* Regular Screen Group */}
-        <Stack.Screen
-          name = "Movie Catalog"
-          component = {MovieListScreen}
-          options = {{
-            headerRight : () => (
-              <Button
-                title = "Filter"
-              />
-            )
-          }}
-        />
-        <Stack.Screen
-          name = "About"
-          component = {MovieDetailScreen}
-        />
+      <Stack.Group> 
+        <Stack.Screen name = "Movie Catalog" component = {MovieListScreen}/>
+        <Stack.Screen name = "About" component = {MovieDetailScreen}/>
       </Stack.Group>
-      <Stack.Group screenOptions = {{ presentation: 'modal' }}> {/* Modal Screen Group */}
-        <Stack.Screen
-          name = "Filter Movies"
-          component = {MovieFilterScreen}
-          options = {{
-            headerRight : () => (
-              <Button
-                title = "Done"
-              />
-            )
-          }}
-        />
+      <Stack.Group screenOptions = {{presentation:'modal'}}> 
+        <Stack.Screen name = "Filter Movies" component={MovieFilterScreen}/>
       </Stack.Group>
     </Stack.Navigator>
-  </NavigationContainer>
-  );
+</NavigationContainer>;
 }

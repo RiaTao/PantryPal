@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, Button, TouchableOpacity } from "react-native";
 import { SearchBar } from "react-native-elements";
+import { getAllActors } from "../../constants/Constants";
 import { MovieCell } from "./components/MovieCell";
 import { styles } from "./MovieListScreen.styles";
 
@@ -13,13 +14,16 @@ export default function MovieListScreen({ navigation, route }) {
   const [search, setSearch] = useState("");
   const [actors, setActors] = useState([]);
 
+
   // TODO: Fill out the methods below.
   const selectedMovie = (movieItem) => {
-    
-  };
-
-  const selectedFilterButton = () => {
-
+    // console.log(movieItem.title);
+    return (
+    <TouchableOpacity
+      onPress={()=> navigation.navigate('About', { item: movieItem })}>
+      <MovieCell movieItem = {movieItem}>
+      </MovieCell>
+    </TouchableOpacity>);
   };
 
   useEffect(
@@ -29,12 +33,14 @@ export default function MovieListScreen({ navigation, route }) {
       // variable as a parameter.
       navigation.setOptions({
         headerRight: () => (
-          <Button onPress={(actors) => navigation.navigate('Filter', actors)}
+          <Button 
+            title= "Filter"
+            onPress={() => navigation.navigate('Filter Movies', {actorArray: actors})}
           />
-        ),
+        )
       });
     },
-    [actors]
+    [route]
   );
 
   useEffect(
@@ -43,9 +49,11 @@ export default function MovieListScreen({ navigation, route }) {
           See https://reactnavigation.org/docs/params/#passing-params-to-a-previous-screen
           for an example of how to send data BACKWARDS in the navigation stack.
       */
-     setActors()
+     if (route.params != undefined) {
+        setActors(route.params.currActors);
+     }
     },
-    [navigation]
+    [route]
   );
 
   // Renders a row of the FlatList.
@@ -64,13 +72,22 @@ export default function MovieListScreen({ navigation, route }) {
     let meetsSearchCriteria = true;
     let meetsActorsCriteria = true;
 
+    if (search) {
+      const currSearch = search.toLowerCase();
+      const currTitle = item.title.toLowerCase();
+      if (!currTitle.includes(currSearch)) {
+        meetsSearchCriteria = false;
+      }
+    }
+    console.log(item.actors)
+    console.log(actors)
+    if (!overlapFound(actors, item.actors)) {
+      meetsActorsCriteria = false;
+    }
+
     if (meetsSearchCriteria && meetsActorsCriteria) {
       // TODO: Return a MovieCell, wrapped by a TouchableOpacity so we can handle taps.
-      return (
-        <TouchableOpacity>
-          {MovieCell}
-        </TouchableOpacity>
-      );
+      return selectedMovie(item);
     } else {
       // If the item doesn't meet search/filter criteria, then we can
       // simply return null and it won't be rendered in the list!
@@ -80,19 +97,18 @@ export default function MovieListScreen({ navigation, route }) {
 
   // Our final view consists of a search bar and flat list, wrapped in
   // a SafeAreaView to support iOS.
-  return (
-    <SafeAreaView style={styles.container}>
+  return <SafeAreaView>
       {/* TODO: Add a SearchBar: https://reactnativeelements.com/docs/searchbar/.
                 The third-party package should already be installed for you. */}
       <SearchBar
-        placeholder="I'm looking for..."
-        onChangeText 
+        placeholder = "I'm looking for..."
+        onChangeText = {text => setSearch(text)}
+        value = {search}
       />
       <FlatList
         data = {TABLE_DATA}
-        onChangeText = {setSearch}
-        value = {search}
+        renderItem = {renderItem}
+        keyExtractor= {item => item.id}
       />
-    </SafeAreaView>
-  );
+    </SafeAreaView>;
 }

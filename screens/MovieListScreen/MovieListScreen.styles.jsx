@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  movieCellTitle: { fontFamily: "Avenir", fontSize: 22 },
-  movieCellSubtitle: { fontFamily: "Avenir", fontSize: 14 },
+  movieCellTitle: { fontFamily: "Avenir", fontSize: 22, flex: 3, textAlign: 'center'},
+  movieCellSubtitle: { fontFamily: "Avenir", fontSize: 14, flex: 1},
   movieCellLeft: { height: 80, width: 54 },
   movieCellImage: { height: 80, width: 54, resizeMode: "contain" },
   movieCellRight: {
