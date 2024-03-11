@@ -60,7 +60,7 @@ export default function MovieFilterScreen({ navigation, route }) {
         )
       });
     },
-    [route]
+    [actors]
   );
 
   // When we tap an actor cell, flip the boolean!
