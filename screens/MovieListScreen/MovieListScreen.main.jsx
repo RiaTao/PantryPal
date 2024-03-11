@@ -35,7 +35,7 @@ export default function MovieListScreen({ navigation, route }) {
         headerRight: () => (
           <Button 
             title= "Filter"
-            onPress={() => navigation.navigate('Filter Movies', {actorArray: actors})}
+            onPress={() => navigation.navigate('Filter Movies', { actorArray: actors })}
           />
         )
       });
@@ -49,11 +49,15 @@ export default function MovieListScreen({ navigation, route }) {
           See https://reactnavigation.org/docs/params/#passing-params-to-a-previous-screen
           for an example of how to send data BACKWARDS in the navigation stack.
       */
-     if (route.params != undefined) {
-        setActors(route.params.currActors);
-     }
+      if (route.params?.updatedActors) {
+        const updatedActors = route.params.updatedActors;
+        console.log("The actors passed in are: ");
+        console.log(route.params);
+        setActors(updatedActors)
+        console.log("Updated Actors for filtering");
+      }  
     },
-    [route]
+    [route.params?.updatedActors]
   );
 
   // Renders a row of the FlatList.
@@ -79,11 +83,13 @@ export default function MovieListScreen({ navigation, route }) {
         meetsSearchCriteria = false;
       }
     }
-    console.log(item.actors)
-    console.log(actors)
-    if (!overlapFound(actors, item.actors)) {
-      meetsActorsCriteria = false;
-    }
+    // console.log(item.actors)
+    // console.log(actors)
+    if (route.params != undefined) {
+      if (!overlapFound(actors, item.actors)) {
+        meetsActorsCriteria = false;
+      }
+   }
 
     if (meetsSearchCriteria && meetsActorsCriteria) {
       // TODO: Return a MovieCell, wrapped by a TouchableOpacity so we can handle taps.

@@ -17,16 +17,18 @@ const ALL_ACTORS = getAllActors();
 // Output: a Movie Filter Screen component, which displays a list of actors to filter on.
 export default function MovieFilterScreen({ navigation, route }) {
   const [actors, setActors] = useState([]);
-  const actorArray = route.params.actorArray
 
   // TODO: Destructure navigation params from props
+  const actorArray = route.params.actorArray;
+
   useEffect(
     () => {
       // TODO: Recieve actors passed by MovieListScreen here, and update
       // our local state using setActors.
       setActors(actorArray);
+      console.log("updated from list screen");
     },
-    [route]
+    [route.params]
   );
 
   useEffect(
@@ -41,9 +43,20 @@ export default function MovieFilterScreen({ navigation, route }) {
         headerRight: () => (
           <Button
             title = "Done" 
-            onPress={() => navigation.navigate("Movie Catalog", 
-            {currActors: actors})}
+            onPress={() => navigation.navigate("Movie Catalog", { updatedActors: actors })}
+            // onPress={() => navigation.goBack({actors})}
           />
+          // <Button
+          //   title="Done"
+          //   onPress={() => {
+          //     // Pass and merge params back to home screen
+          //     navigation.navigate({
+          //     name: 'Movie Catalog',
+          //     params: { updatedActors: actors },
+          //     merge: true,
+          //     });
+          //   }}
+          // />
         )
       });
     },
@@ -64,6 +77,8 @@ export default function MovieFilterScreen({ navigation, route }) {
       newActors.push(actor);
     }
     setActors(newActors);
+    console.log("Current Actors List: ");
+    console.log(actors)
   };
 
   const renderSelectItem = ({ item, index }) => {
